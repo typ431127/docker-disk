@@ -34,6 +34,7 @@ func Show() {
 		fmt.Println(err)
 		os.Exit(2)
 	}
+	defer cli.Close()
 	data, err := cli.DiskUsage(context.Background())
 	if err != nil {
 		panic(err)
