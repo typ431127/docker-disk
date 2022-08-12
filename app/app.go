@@ -14,7 +14,7 @@ import (
 
 func init() {
 	flag.StringVar(&config.Size, "size", "0k", "指定容器存储大小")
-	flag.StringVar(&config.WithVersion, "withversion", "1.39", "指定客户端API版本")
+	flag.StringVar(&config.WithVersion, "withversion", "1.39", "指定客户端API版本，不指定则自动协商API版本")
 	flag.BoolVar(&config.K8s, "k8s", false, "解析k8s名称格式")
 	flag.BoolVar(&config.NoPause, "nopause", false, "不显示pause容器")
 	flag.BoolVar(&config.PrintDelete, "delete-commond", false, "生成k8s pod删除语句")
@@ -29,7 +29,13 @@ func Show() {
 	}()
 	sizefloat64 := ext.UnitParse(config.Size)
 	var Containers []ext.PodInfo
-	cli, err := client.NewClientWithOpts(client.WithVersion(config.WithVersion))
+	var cli *client.Client
+	var err error
+	if config.WithVersion == "1.39" {
+		cli, err = client.NewClientWithOpts(client.WithAPIVersionNegotiation())
+	} else {
+		cli, err = client.NewClientWithOpts(client.WithVersion(config.WithVersion))
+	}
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(2)
