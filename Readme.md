@@ -9,7 +9,7 @@ k8s容器临时存储长时间情况下会导致容器磁盘占用量增大，�
 ```shell
 go build 
 ```
-#### 服务器快速安装
+#### Linux服务器快速安装
 ```shell
 curl https://ddn-cloud.oss-cn-beijing.aliyuncs.com/github/docker-disk/docker-disk-linux-amd64 -o /usr/bin/docker-disk
 chmod +x /usr/bin/docker-disk
@@ -22,8 +22,11 @@ chmod +x /usr/bin/docker-disk
 # 使用k8s名称解析
 ./docker-disk -k8s
 
-# 过滤占用大于1g的容器
+# 过滤磁盘占用大于1g的容器
 ./docker-disk -size 1g
+
+# 过滤磁盘占用大于100m的容器
+./docker-disk -size 100m
 
 # 不显示k8s pause容器
 ./docker-disk -k8s -nopause
