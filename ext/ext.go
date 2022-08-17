@@ -11,6 +11,7 @@ type PodInfo struct {
 	Name       string
 	Kubernetes bool
 	Deployment string
+	Image      string
 	Podname    string
 	Namespace  string
 	Restart    string

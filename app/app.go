@@ -49,6 +49,7 @@ func Show() {
 		if con.SizeRootFs >= int64(sizefloat64) {
 			podinfo := ext.ParseName(con.Names[0][1:])
 			podinfo.Size = float64(con.SizeRootFs)
+			podinfo.Image = con.Image
 			podinfo.ID = con.ID[:12]
 			podinfo.Status = con.State
 			podinfo.FormatUnit = ext.UnitConvert(con.SizeRootFs)
@@ -74,7 +75,7 @@ func Show() {
 			}
 
 		} else {
-			table = append(table, container.Name, container.ID, container.FormatUnit, container.Status)
+			table = append(table, container.Name, container.ID, container.FormatUnit, container.Image, container.Status)
 			config.Tabledata = append(config.Tabledata, table)
 		}
 	}
@@ -90,7 +91,7 @@ func Show() {
 	if config.K8s {
 		table.SetHeader([]string{"Name", "NAMESPACE", "ID", "SIZE", "RESTART", "STATUS"})
 	} else {
-		table.SetHeader([]string{"Name", "ID", "SIZE", "STATUS"})
+		table.SetHeader([]string{"Name", "ID", "SIZE", "IMAGE", "STATUS"})
 	}
 	table.SetAutoWrapText(false)
 	table.SetAutoFormatHeaders(true)
