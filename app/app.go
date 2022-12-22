@@ -17,7 +17,7 @@ func init() {
 	flag.StringVar(&config.WithVersion, "withversion", "1.39", "指定客户端API版本，不指定则自动协商API版本")
 	flag.BoolVar(&config.K8s, "k8s", false, "解析k8s名称格式")
 	flag.BoolVar(&config.NoPause, "nopause", false, "不显示pause容器")
-	flag.BoolVar(&config.PrintDelete, "delete-commond", false, "生成k8s pod删除语句")
+	flag.BoolVar(&config.PrintDelete, "delete-command", false, "生成k8s pod删除语句")
 }
 
 func Show() {
